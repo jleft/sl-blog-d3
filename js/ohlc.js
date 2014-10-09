@@ -59,12 +59,21 @@ define([
         new Date(maxDate.getTime() + 8.64e7)
     ]);
 
+    var xDomain = xScale.domain();
+    var range = moment().range(xDomain[0], xDomain[1]);
+    var displayedData = [];
+    for (var i = 0; i < data.length; i += 1) {
+        if (range.contains(data[i].date)) {
+            displayedData.push(data[i]);
+        }
+    }
+
     yScale.domain(
         [
-            d3.min(data, function (d) {
+            d3.min(displayedData, function (d) {
                 return d.low;
             }),
-            d3.max(data, function (d) {
+            d3.max(displayedData, function (d) {
                 return d.high;
             })
         ]
