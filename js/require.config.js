@@ -13,5 +13,10 @@ var require = {
         'modernizr': {
             exports: 'Modernizr'
         }
+    },
+    config: {
+        moment: {
+            noGlobal: true
+        }
     }
 };

@@ -1,9 +1,10 @@
 define([
     'd3',
+    'moment',
     'components/sl',
     'MockData',
     'components/ohlcSeries'
-], function (d3, sl, MockData) {
+], function (d3, moment, sl, MockData) {
     'use strict';
 
     var mockData = new MockData(0.1, 0.1, 100, 50, function (moment) {
