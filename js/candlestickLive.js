@@ -2,7 +2,7 @@ define([
     'd3',
     'moment',
     'components/sl',
-    'components/ohlcSeries',
+    'components/candlestickSeries',
     'moment-range'
 ], function (d3, moment, sl) {
     'use strict';
@@ -42,7 +42,7 @@ define([
         .scale(yScale)
         .orient('left');
 
-    var series = sl.series.ohlc()
+    var series = sl.series.candlestick()
         .xScale(xScale)
         .yScale(yScale);
 
