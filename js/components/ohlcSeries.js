@@ -13,7 +13,7 @@ define ([
             return d.close > d.open;
         };
         var isDownDay = function (d) {
-            return !isUpDay(d);
+            return d.close < d.open;
         };
 
         var tickWidth = 5;

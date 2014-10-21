@@ -15,7 +15,7 @@ define ([
             return d.close > d.open;
         };
         var isDownDay = function (d) {
-            return !isUpDay(d);
+            return d.close < d.open;
         };
 
         var line = d3.svg.line()
@@ -53,16 +53,16 @@ define ([
             rect.enter().append('rect');
 
             rect.attr('x', function (d) {
-                return xScale(d.date) - rectangleWidth;
-            })
+                    return xScale(d.date) - rectangleWidth;
+                })
                 .attr('y', function (d) {
                     return isUpDay(d) ? yScale(d.close) : yScale(d.open);
                 })
                 .attr('width', rectangleWidth * 2)
                 .attr('height', function (d) {
-                    return isUpDay(d) ?
-                        yScale(d.open) - yScale(d.close) :
-                        yScale(d.close) - yScale(d.open);
+                    var body = Math.abs(yScale(d.open) - yScale(d.close));
+                    // If we have a netural entry, set its height to 1
+                    return body === 0 ? 1 : body;
                 });
         };
 

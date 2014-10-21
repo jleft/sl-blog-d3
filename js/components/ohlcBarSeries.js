@@ -16,7 +16,7 @@ define ([
             return d.close > d.open;
         };
         var isDownDay = function (d) {
-            return !isUpDay(d);
+            return d.close < d.open;
         };
 
         var ohlcBar = sl.svg.ohlcBar()

@@ -2,11 +2,6 @@ html * {
     box-sizing: border-box;
 }
 
-#chart {
-    width: 1280px;
-    position: relative;
-}
-
 .chart .axis text {
     font: 10px sans-serif;
 }
@@ -37,6 +32,10 @@ html * {
     stroke: red;
 }
 
+.chart .ohlc-series .bar {
+    stroke: black;
+}
+
 .chart .ohlc-series .bar.up-day {
     stroke: green;
 }
@@ -54,6 +53,9 @@ html * {
     stroke: steelblue;
     stroke-width: 1.5px;
     vector-effect: non-scaling-stroke;
+}
+.chart .bar rect {
+    fill: black;
 }
 
 .chart .bar.up-day rect {

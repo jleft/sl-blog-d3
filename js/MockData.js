@@ -45,7 +45,7 @@ define([
                         high: Math.max.apply({}, daySteps),
                         low: Math.min.apply({}, daySteps),
                         close: daySteps[self.intraDaySteps - 1]
-                    })
+                    });
                 }
             });
 
