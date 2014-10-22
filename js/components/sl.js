@@ -5,6 +5,7 @@ define(function () {
         version: '0.0.0',
         series: {},
         svg: {},
-        example: {}
+        example: {},
+        utility: {}
     };
 });
