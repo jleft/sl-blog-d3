@@ -2,9 +2,10 @@ define([
     'd3',
     'moment',
     'components/sl',
+    'GUI',
     'components/candlestickSeries',
     'moment-range'
-], function (d3, moment, sl) {
+], function (d3, moment, sl, GUI) {
     'use strict';
 
     var dataset;
@@ -25,6 +26,16 @@ define([
         var data = processDatasetForChart(dataset);
         drawAxesAndSeries(data);
     });
+
+    var TransitionProperties = function() {
+        this.duration = 500;
+        this.ease = 'linear';
+    };
+
+    var tp = new TransitionProperties();
+    var gui = new dat.GUI();
+    gui.add(tp, 'duration', 0, 1000);
+    gui.add(tp, 'ease', ['linear', 'quad', 'cubic', 'sin', 'exp', 'circle', 'bounce'] );
 
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
         width = 660 - margin.left - margin.right,
@@ -136,6 +147,8 @@ define([
         plotArea.select('.series')
             .datum(data)
             .transition()
+            .duration(tp.duration)
+            .ease(tp.ease)
             .call(series);
     }
 

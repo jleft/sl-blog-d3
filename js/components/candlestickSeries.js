@@ -93,8 +93,6 @@ define ([
                 rectangles(bars);
 
                 bars.exit().remove();
-
-
             });
         };
 
