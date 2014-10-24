@@ -34,7 +34,7 @@ define ([
 
             paths.enter().append('path');
 
-            paths.classed('high-low-line', true)
+            d3.transition(paths.classed('high-low-line', true))
                 .attr('d', function (d) {
                     return line([
                         { x: xScale(d.date), y: yScale(d.high) },
@@ -58,7 +58,7 @@ define ([
             open.enter().append('path');
             close.enter().append('path');
 
-            open.classed('open-tick', true)
+            d3.transition(open.classed('open-tick', true))
                 .attr('d', function (d) {
                     return line([
                         { x: xScale(d.date) - tickWidth, y: yScale(d.open) },
@@ -66,7 +66,7 @@ define ([
                     ]);
                 });
 
-            close.classed('close-tick', true)
+            d3.transition(close.classed('close-tick', true))
                 .attr('d', function (d) {
                     return line([
                         { x: xScale(d.date), y: yScale(d.close) },

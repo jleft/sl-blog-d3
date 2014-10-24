@@ -34,7 +34,7 @@ define ([
 
             paths.enter().append('path');
 
-            paths.classed('high-low-line', true)
+            d3.transition(paths.classed('high-low-line', true))
                 .attr('d', function (d) {
                     return line([
                         { x: xScale(d.date), y: yScale(d.high) },
@@ -52,7 +52,7 @@ define ([
 
             rect.enter().append('rect');
 
-            rect.attr('x', function (d) {
+            d3.transition(rect).attr('x', function (d) {
                     return xScale(d.date) - rectangleWidth;
                 })
                 .attr('y', function (d) {

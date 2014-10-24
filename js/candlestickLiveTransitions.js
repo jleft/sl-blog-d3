@@ -2,7 +2,7 @@ define([
     'd3',
     'moment',
     'components/sl',
-    'components/ohlcSeries',
+    'components/candlestickSeries',
     'moment-range'
 ], function (d3, moment, sl) {
     'use strict';
@@ -16,7 +16,7 @@ define([
             open: +d.open,
             high: +d.high,
             low: +d.low,
-            close: +d.close 
+            close: +d.close
         };
     }, function(error, rows) {
         // Get all of the entries from the file
@@ -42,7 +42,7 @@ define([
         .scale(yScale)
         .orient('left');
 
-    var series = sl.series.ohlc()
+    var series = sl.series.candlestick()
         .xScale(xScale)
         .yScale(yScale);
 
@@ -71,7 +71,7 @@ define([
 
         var minute = 6e4; // in milliseconds
         xScale.domain([
-            new Date(maxDate.getTime() - minute * 15),
+            new Date(maxDate.getTime() - minute * 15.5),
             new Date(maxDate.getTime() + minute / 2)
         ]);
 
