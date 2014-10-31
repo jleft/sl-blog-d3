@@ -1,4 +1,12 @@
-Chart examples for Scott Logic blog posts on D3
-* [An OHLC Chart Component for D3](http://www.scottlogic.com/blog/2014/08/19/an-ohlc-chart-component-for-d3.html)
-* [D3 SVG chart performance](http://www.scottlogic.com/blog/2014/09/19/d3-svg-chart-performance.html)
-* [An Interactive Stock Comparison Chart with D3 ](http://www.scottlogic.com/blog/2014/09/26/an-interactive-stock-comparison-chart-with-d3.html)
+# D3 Financial Components
+
+Re-usable D3 components for use in financial charts. Current development includes:
+
+- A margin/dimensions component
+- Support for streaming data and transitions
+
+[Examples on GitHub Pages.](http://jleft.github.io/sl-blog-d3)
+
+---
+
+Forked from [Tom Simmons's chart examples for Scott Logic blog posts on D3](https://github.com/tlsim/sl-blog-d3).
