@@ -1,6 +1,6 @@
 # D3 Financial Components
 
-Re-usable D3 components for use in financial charts. Current development includes:
+Reusable D3 components for use in financial charts. Current development includes:
 
 - A margin/dimensions component
 - Support for streaming data and transitions
