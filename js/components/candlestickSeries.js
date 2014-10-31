@@ -9,8 +9,6 @@ define ([
         var xScale = d3.time.scale(),
             yScale = d3.scale.linear();
 
-        var rectangleWidth = 5;
-
         var isUpDay = function(d) {
             return d.close > d.open;
         };
@@ -27,7 +25,6 @@ define ([
             });
 
         var highLowLines = function (bars) {
-
             var paths = bars.selectAll('.high-low-line').data(function (d) {
                 return [d];
             });
@@ -44,9 +41,9 @@ define ([
         };
 
         var rectangles = function (bars) {
-            var rect;
+            var rectangleWidth = 5;
 
-            rect = bars.selectAll('rect').data(function (d) {
+            var rect = bars.selectAll('rect').data(function (d) {
                 return [d];
             });
 
@@ -70,10 +67,7 @@ define ([
             var series, bars;
 
             selection.each(function (data) {
-                series = d3.select(this).selectAll('.candlestick-series').data([data]);
-
-                series.enter().append('g')
-                    .classed('candlestick-series', true);
+                series = d3.select(this);
 
                 bars = series.selectAll('.bar')
                     .data(data, function (d) {
@@ -82,7 +76,8 @@ define ([
 
                 bars.enter()
                     .append('g')
-                    .classed('bar', true);
+                    .classed('bar', true)
+                    .style('opacity', 1e-6);
 
                 bars.classed({
                     'up-day': isUpDay,
@@ -92,7 +87,9 @@ define ([
                 highLowLines(bars);
                 rectangles(bars);
 
-                bars.exit().remove();
+                d3.transition(bars).style('opacity', 1);
+
+                d3.transition(bars.exit()).style('opacity', 1e-6).remove();
             });
         };
 
@@ -112,15 +109,6 @@ define ([
             return candlestick;
         };
 
-        candlestick.rectangleWidth = function (value) {
-            if (!arguments.length) {
-                return rectangleWidth;
-            }
-            rectangleWidth = value;
-            return candlestick;
-        };
-
         return candlestick;
-
     };
 });

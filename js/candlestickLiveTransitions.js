@@ -137,10 +137,12 @@ define([
         // Update axes
         g.select('.x.axis')
             .transition()
+            .duration(tp.duration)
             .call(xAxis);
 
         g.select('.y.axis')
             .transition()
+            .duration(tp.duration)
             .call(yAxis);
 
         // Update series

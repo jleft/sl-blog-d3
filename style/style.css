@@ -58,8 +58,21 @@ html * {
     fill: black;
 }
 
+.chart .bar path {
+    stroke: black;
+    stroke-width: 1.5;
+}
+
+.chart .bar.up-day path {
+    stroke: green;
+}
+
 .chart .bar.up-day rect {
     fill: green;
+}
+
+.chart .bar.down-day path {
+    stroke: red;
 }
 
 .chart .bar.down-day rect {

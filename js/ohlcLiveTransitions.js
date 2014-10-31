@@ -71,7 +71,7 @@ define([
 
         var minute = 6e4; // in milliseconds
         xScale.domain([
-            new Date(maxDate.getTime() - minute * 15),
+            new Date(maxDate.getTime() - minute * 15.5),
             new Date(maxDate.getTime() + minute / 2)
         ]);
 

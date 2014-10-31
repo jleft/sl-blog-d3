@@ -94,7 +94,8 @@ define ([
 
                 bars.enter()
                     .append('g')
-                    .classed('bar', true);
+                    .classed('bar', true)
+                    .style('opacity', 1e-6);
 
                 bars.classed({
                     'up-day': isUpDay,
@@ -103,9 +104,9 @@ define ([
                 highLowLines(bars);
                 openCloseTicks(bars);
 
-                bars.exit().remove();
+                d3.transition(bars).style('opacity', 1);
 
-
+                d3.transition(bars.exit()).style('opacity', 1e-6).remove();
             });
         };
 
