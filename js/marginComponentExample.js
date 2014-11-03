@@ -21,6 +21,7 @@ define([
     var dimensions = sl.utility.dimensions()
         .marginBottom(30)
         .marginLeft(50)
+        .marginRight(50)
         .width(660)
         .height(400);
 
@@ -36,6 +37,10 @@ define([
         var yAxis = d3.svg.axis()
             .scale(yScale)
             .orient('left');
+
+        var yAxisRight = d3.svg.axis()
+            .scale(yScale)
+            .orient('right');
 
         var series = sl.series.ohlc()
             .xScale(xScale)
@@ -98,6 +103,11 @@ define([
         chart.append('g')
             .attr('class', 'y axis')
             .call(yAxis);
+
+        chart.append('g')
+            .attr('class', 'y axis right')
+            .attr('transform', 'translate(' + dimensions.innerWidth() + ',0)')
+            .call(yAxisRight);
 
         // Draw series.
         plotArea.append('g')
