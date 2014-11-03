@@ -11,30 +11,51 @@ define ([
             width = 960,
             height = 500;
 
+        var defaultWidth = true,
+            defaultHeight = true;
+
         var dimensions = function(selection) {
             // Potentially:
             // - Clear the selection's inner HTML
-            // - Support multiple elements in the selection (selection.each(function))
 
-            // Create svg
-            var svg = selection.append('svg')
-                .attr('width', width)
-                .attr('height', height);
+            selection.each( function() {
+                var g = this;
 
-            // Create group for the chart
-            var chart =  svg.append('g')
-                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+                // Try to automatically size the chart to the selection
+                if (defaultWidth === true) {
+                    width = g.offsetWidth;
+                    if (dimensions.innerWidth() < 1) {
+                        width = 800 + margin.left + margin.right;
+                    }
+                }
 
-            // Clipping path
-            chart.append('defs').append('clipPath')
-                .attr('id', 'plotAreaClip')
-                .append('rect')
-                .attr({ width: dimensions.innerWidth(), height: dimensions.innerHeight() });
+                if (defaultHeight === true) {
+                    height = g.offsetHeight;
+                    if (dimensions.innerHeight() < 1) {
+                        height = 300 + margin.top + margin.bottom;
+                    }
+                }
 
-            // Create plot area, using the clipping path
-            chart.append('g')
-                .attr('clip-path', 'url(#plotAreaClip)')
-                .attr('class', 'plotArea');
+                // Create svg
+                var svg = selection.append('svg')
+                    .attr('width', width)
+                    .attr('height', height);
+
+                // Create group for the chart
+                var chart =  svg.append('g')
+                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+                // Clipping path
+                chart.append('defs').append('clipPath')
+                    .attr('id', 'plotAreaClip')
+                    .append('rect')
+                    .attr({ width: dimensions.innerWidth(), height: dimensions.innerHeight() });
+
+                // Create plot area, using the clipping path
+                chart.append('g')
+                    .attr('clip-path', 'url(#plotAreaClip)')
+                    .attr('class', 'plotArea');
+            });
         };
 
         dimensions.marginTop = function (value) {
@@ -74,6 +95,7 @@ define ([
                 return width;
             }
             width = value;
+            defaultWidth = false;
             return dimensions;
         };
 
@@ -82,6 +104,7 @@ define ([
                 return height;
             }
             height = value;
+            defaultHeight = false;
             return dimensions;
         };
 

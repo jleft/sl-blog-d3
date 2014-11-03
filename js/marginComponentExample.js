@@ -21,9 +21,7 @@ define([
     var dimensions = sl.utility.dimensions()
         .marginBottom(30)
         .marginLeft(50)
-        .marginRight(50)
-        .width(660)
-        .height(400);
+        .marginRight(50);
 
     function draw() {
         var xScale = d3.time.scale(),
