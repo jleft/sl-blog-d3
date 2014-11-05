@@ -1,43 +1,41 @@
 define ([
     'd3',
-    'components/sl'
-], function (d3, sl) {
+    'components/sl',
+    'jquery'
+], function (d3, sl, $) {
     'use strict';
 
     sl.utility.dimensions = function () {
 
         // Default values
         var margin = {top: 20, right: 20, bottom: 20, left: 20},
-            width = 960,
-            height = 500;
+            width = 0,
+            height = 0;
 
         var defaultWidth = true,
             defaultHeight = true;
 
-        var dimensions = function(selection) {
-            // Potentially:
-            // - Clear the selection's inner HTML
+        var dimensions = function (selection) {
+            selection.each( function () {
+                var element = d3.select(this);
 
-            selection.each( function() {
-                var g = this;
-
-                // Try to automatically size the chart to the selection
+                // Attempt to automatically size the chart to the selected element
                 if (defaultWidth === true) {
-                    width = g.offsetWidth;
+                    width = $(element[0]).width();
                     if (dimensions.innerWidth() < 1) {
                         width = 800 + margin.left + margin.right;
                     }
                 }
 
                 if (defaultHeight === true) {
-                    height = g.offsetHeight;
+                    height = $(element[0]).height();
                     if (dimensions.innerHeight() < 1) {
-                        height = 300 + margin.top + margin.bottom;
+                        height = 400 + margin.top + margin.bottom;
                     }
                 }
 
                 // Create svg
-                var svg = selection.append('svg')
+                var svg = element.append('svg')
                     .attr('width', width)
                     .attr('height', height);
 
