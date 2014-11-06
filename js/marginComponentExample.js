@@ -18,7 +18,7 @@ define([
 
     var data = mockData.generateOHLC(new Date(2014, 6, 1), new Date(2014, 8, 1));
 
-    var dimensions = sl.utility.dimensions()
+    var dimensions = sl.utilities.dimensions()
         .marginBottom(30)
         .marginLeft(50)
         .marginRight(50);

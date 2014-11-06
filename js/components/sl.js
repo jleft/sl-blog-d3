@@ -6,6 +6,6 @@ define(function () {
         series: {},
         svg: {},
         example: {},
-        utility: {}
+        utilities: {}
     };
 });
