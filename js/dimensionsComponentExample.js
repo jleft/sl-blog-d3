@@ -9,7 +9,7 @@ define([
     'GUI',
     'components/ohlcSeries',
     'components/dimensions'
-], function (d3, moment, sl, MockData, $, GUI) {
+], function (d3, moment, sl, MockData, $) {
     'use strict';
 
     var mockData = new MockData(0.1, 0.1, 100, 50, function (moment) {
