@@ -11,6 +11,53 @@ It attempts to simplify the process of constructing the chart area:
 + Create a group for all chart elements; translate it based on the margins
 + Create a clipping path for the plot area; add it to the group
 
+#### Comparison: with and without the Dimensions component
+
+Without the Dimensions component, the setup of the chart would usually follow this pattern:
+
+```javascript
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = 660 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+// Create svg element
+var svg = d3.select('#chart').append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom);
+
+// Create chart
+var chart = svg.append('g')
+    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+// Create plot area
+var plotArea = chart.append('g');
+plotArea.append('clipPath')
+    .attr('id', 'plotAreaClip')
+    .append('rect')
+    .attr({ width: width, height: height });
+plotArea.attr('clip-path', 'url(#plotAreaClip)');                
+```
+
+With the component, this is simplified:
+
+```javascript
+var dimensions = sl.utilities.dimensions()
+    .marginBottom(30)
+    .marginLeft(50)
+    .width(660)
+    .height(400);
+
+// Setup the chart
+var setupArea = d3.select('#chart')
+    .call(dimensions);
+
+// Select the elements which we may want to use
+// Typically axes will be added to the 'chart' and series to the 'plotArea'
+var svg = setupArea.select('svg'),
+    chart = svg.select('g'),
+    plotArea = chart.select('.plotArea');
+```
+
 ## API Reference
 
 #### sl.utilities.dimensions()
