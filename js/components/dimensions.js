@@ -16,13 +16,16 @@ define ([
 
         var dimensions = function (selection) {
             selection.each( function () {
-                var element = d3.select(this);
+                var element = d3.select(this),
+                    style = getComputedStyle(this);
 
                 // Attempt to automatically size the chart
                 if (defaultWidth === true) {
                     // Set the width of the chart to the width of the selected element,
                     // excluding any margins, padding or borders
-                    width = parseInt(getComputedStyle(this).width);
+                    var paddingWidth = parseInt(style.paddingLeft) + parseInt(style.paddingRight);
+                    
+                    width = this.clientWidth - paddingWidth;
 
                     // If the new width is too small, use a default width
                     if (dimensions.innerWidth() < 1) {
@@ -33,7 +36,9 @@ define ([
                 if (defaultHeight === true) {
                     // Set the height of the chart to the height of the selected element,
                     // excluding any margins, padding or borders
-                    height = parseInt(getComputedStyle(this).height);
+                    var paddingHeight = parseInt(style.paddingTop) + parseInt(style.paddingBottom);
+                    
+                    height = this.clientHeight - paddingHeight;
 
                     // If the new height is too small, use a default height
                     if (dimensions.innerHeight() < 1) {
