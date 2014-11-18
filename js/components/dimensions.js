@@ -1,8 +1,7 @@
 define ([
     'd3',
-    'components/sl',
-    'jquery'
-], function (d3, sl, $) {
+    'components/sl'
+], function (d3, sl) {
     'use strict';
 
     sl.utilities.dimensions = function () {
@@ -19,16 +18,24 @@ define ([
             selection.each( function () {
                 var element = d3.select(this);
 
-                // Attempt to automatically size the chart to the selected element
+                // Attempt to automatically size the chart
                 if (defaultWidth === true) {
-                    width = $(element[0]).width();
+                    // Set the width of the chart to the width of the selected element,
+                    // excluding any margins, padding or borders
+                    width = parseInt(getComputedStyle(this).width);
+
+                    // If the new width is too small, use a default width
                     if (dimensions.innerWidth() < 1) {
                         width = 800 + margin.left + margin.right;
                     }
                 }
-
+ 
                 if (defaultHeight === true) {
-                    height = $(element[0]).height();
+                    // Set the height of the chart to the height of the selected element,
+                    // excluding any margins, padding or borders
+                    height = parseInt(getComputedStyle(this).height);
+
+                    // If the new height is too small, use a default height
                     if (dimensions.innerHeight() < 1) {
                         height = 400 + margin.top + margin.bottom;
                     }
