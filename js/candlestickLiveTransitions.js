@@ -28,7 +28,7 @@ define([
     });
 
     var TransitionProperties = function() {
-        this.duration = 500;
+        this.duration = 1000;
         this.ease = 'linear';
     };
 

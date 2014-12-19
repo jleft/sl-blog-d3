@@ -100,6 +100,8 @@ define([
         plotArea.append('g')
             .attr('class', 'series')
             .datum(data)
+            .transition()
+            .duration(2000)
             .call(series);
 
         // Draw axes

@@ -25,14 +25,16 @@ define ([
             });
 
         var highLowLines = function (bars) {
-            var paths = bars.selectAll('.high-low-line').data(function (d) {
+            var paths = bars.selectAll('.high-low-line');
+
+            paths = paths.data(function (d) {
                 return [d];
             });
 
-            paths.enter().append('path');
+            paths.enter().append('path')
+                .classed('high-low-line', true);
 
-            d3.transition(paths.classed('high-low-line', true))
-                .attr('d', function (d) {
+            paths.attr('d', function (d) {
                     return line([
                         { x: xScale(d.date), y: yScale(d.high) },
                         { x: xScale(d.date), y: yScale(d.low) }
@@ -40,27 +42,76 @@ define ([
                 });
         };
 
-        var rectangles = function (bars) {
-            var rectangleWidth = 5;
+        var body = function(d) {
+            var rectangleWidth = 10;
+            // BODY
+            // Move to the opening price
+            var bodyPath = 'M' + (xScale(d.date) - rectangleWidth/2) + ',' + yScale(d.open) +
+            // Draw the width
+            'h' + rectangleWidth +
+            // Draw to the closing price (vertically)
+            'V' + yScale(d.close) +
+            // Draw the width
+            'h' + -rectangleWidth +
+            // Move back to the opening price and enclose the price
+            'V' + yScale(d.open) +
+            'z';
+            // SHADOWS / WICKS
+            // Move to the highest of either close or open and draw the high wick
+            var highWick = 'M' + (xScale(d.date)) + ',' + Math.max(yScale(d.close), yScale(d.open)) + 
+            'V' + yScale(d.high);
+            // Move 
+            var lowWick = 'M' + (xScale(d.date)) + ',' + Math.min(yScale(d.close), yScale(d.open)) + 
+            'V' + yScale(d.low);
 
-            var rect = bars.selectAll('rect').data(function (d) {
+            return bodyPath /*+ highWick + lowWick*/;
+        };
+
+        var rectangles = function (bars) {
+            var rect = bars.selectAll('.rect-path').data(function (d) {
                 return [d];
             });
 
-            rect.enter().append('rect');
+            rect.enter().append('path')
+                .classed('rect-path', true);
 
-            d3.transition(rect).attr('x', function (d) {
-                    return xScale(d.date) - rectangleWidth;
-                })
-                .attr('y', function (d) {
-                    return isUpDay(d) ? yScale(d.close) : yScale(d.open);
-                })
-                .attr('width', rectangleWidth * 2)
-                .attr('height', function (d) {
-                    var body = Math.abs(yScale(d.open) - yScale(d.close));
-                    // If we have a netural entry, set its height to 1
-                    return body === 0 ? 1 : body;
+            // rect.attr('d', function(d) {
+            //        return body(d);
+            //     })
+            //     .attr('transform', null)
+            //     .transition()
+            //     .ease('linear')
+            //     .attr('transform', 'translate(' + -1 + ')');
+
+            // rect.attr('d', function(d) {
+            //        return body(d);
+            //     }).attr('stroke-dashoffset', 10)
+            //     .transition()
+            //     .ease('linear')
+            //     .duration(500)
+            //     .attr('stroke-dashoffset', 0);
+
+            function logThis() {
+                var paths = bars.selectAll('.high-low-line');
+
+            paths = paths.data(function (d) {
+                return [d];
+            });
+
+            paths.enter().append('path')
+                .classed('high-low-line', true);
+
+            paths.attr('d', function (d) {
+                    return line([
+                        { x: xScale(d.date), y: yScale(d.high) },
+                        { x: xScale(d.date), y: yScale(d.low) }
+                    ]);
                 });
+            }
+
+            d3.transition(rect).attr('d', function(d) {
+                   return body(d);
+                }).each('end', null);
         };
 
         var candlestick = function (selection) {
@@ -76,20 +127,24 @@ define ([
 
                 bars.enter()
                     .append('g')
-                    .classed('bar', true)
-                    .style('opacity', 1e-6);
+                    .classed('bar', true);
+                    // .style('opacity', 1e-6);
 
                 bars.classed({
                     'up-day': isUpDay,
                     'down-day': isDownDay
                 });
 
-                highLowLines(bars);
+                var paths = bars.selectAll('.high-low-line').remove();
+
+                // highLowLines(bars);
                 rectangles(bars);
 
-                d3.transition(bars).style('opacity', 1);
+                // d3.transition(bars).style('opacity', 1);
 
-                d3.transition(bars.exit()).style('opacity', 1e-6).remove();
+                // d3.transition(bars.exit()).style('opacity', 1e-6).remove();
+
+                bars.exit().remove();
             });
         };
 

@@ -67,7 +67,8 @@ html * {
     stroke: green;
 }
 
-.chart .bar.up-day rect {
+.chart .bar.up-day rect,
+.chart .bar.up-day path {
     fill: green;
 }
 
@@ -75,7 +76,8 @@ html * {
     stroke: red;
 }
 
-.chart .bar.down-day rect {
+.chart .bar.down-day rect,
+.chart .bar.down-day path {
     fill: red;
 }
 

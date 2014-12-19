@@ -3,6 +3,7 @@ define([
     'moment',
     'components/sl',
     'components/ohlcSeries',
+    'components/ohlcBarSeries',
     'moment-range'
 ], function (d3, moment, sl) {
     'use strict';
@@ -42,7 +43,7 @@ define([
         .scale(yScale)
         .orient('left');
 
-    var series = sl.series.ohlc()
+    var series = sl.series.ohlcBar()
         .xScale(xScale)
         .yScale(yScale);
 
@@ -126,16 +127,19 @@ define([
         // Update axes
         g.select('.x.axis')
             .transition()
+            .duration(2000)
             .call(xAxis);
 
         g.select('.y.axis')
             .transition()
+            .duration(2000)
             .call(yAxis);
 
         // Update series
         plotArea.select('.series')
             .datum(data)
             .transition()
+            .duration(2000)
             .call(series);
     }
 
@@ -169,5 +173,5 @@ define([
     setInterval(function() {
         var data = processDatasetForChart();
         updateAxesAndSeries(data);
-    }, 1000);
+    }, 2000);
 });

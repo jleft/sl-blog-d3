@@ -52,7 +52,8 @@ define ([
 
                 bars.enter()
                     .append('path')
-                    .classed('bar', true);
+                    .classed('bar', true)
+                    .style('opacity', 1e-6);
 
                 bars.classed({
                     'up-day': isUpDay,
@@ -61,11 +62,13 @@ define ([
 
                 ohlcBar.tickWidth(tickWidth);
 
-                bars.attr('d', function (d) {
+                d3.transition(bars).attr('d', function (d) {
                     return ohlcBar(d);
                 });
 
-                bars.exit().remove();
+                d3.transition(bars).style('opacity', 1);
+                d3.transition(bars.exit()).style('opacity', 1e-6).remove();
+                
                 series.exit().remove();
 
 

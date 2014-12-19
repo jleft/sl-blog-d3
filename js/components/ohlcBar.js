@@ -28,8 +28,8 @@ define ([
             // return the path
             var moveToLow = 'M' + date(d) + ',' + low(d),
                 verticalToHigh = 'V' + high(d),
-                openTick = 'M' + date(d) + "," + open(d) + 'h' + (-tickWidth),
-                closeTick = 'M' + date(d) + "," + close(d) + 'h' + tickWidth;
+                openTick = 'M' + date(d) + ',' + open(d) + 'h' + (-tickWidth),
+                closeTick = 'M' + date(d) + ',' + close(d) + 'h' + tickWidth;
 
             return moveToLow + verticalToHigh + openTick + closeTick;
         };
